@@ -1,1 +1,53 @@
+body {
+	margin: 0;
+	background: black;
+	display: flex;
+	font-size: 300;
+}
 
+.container {
+	
+
+}
+
+#display {
+	background-color: #222;
+}
+
+#input-display {
+	background-color: #777;
+}
+
+button {
+	font-size: 2em;
+	color: #FFF;
+	height: 15vw;
+	width: 15vw;
+	margin: .5vw;
+	border-radius: 20vw;
+	border: none;
+}
+
+button:hover {
+	border: 1px solid #999;
+}
+
+.num {
+	background-color: #333;
+}
+
+.clear {
+	background-color: #DDD;
+	color: #222;
+	width: 48.5vw;
+	border-radius: 20vw;
+}
+
+.operator {
+	background-color: orange;
+}
+
+#equals {
+	width: 31vw;
+	border-radius: 20vw;
+}
