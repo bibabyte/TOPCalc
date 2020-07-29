@@ -1,8 +1,13 @@
+
+
 body {
 	margin: 0;
 	background: black;
 	display: flex;
-	font-size: 300;
+	justify-content: center;
+	font-weight: 200;
+	font-family: helvetica, sans-serif;
+	color: white;
 }
 
 .container {
@@ -11,11 +16,15 @@ body {
 }
 
 #display {
-	background-color: #222;
+	font-size: 4em;
+	text-align: right;
+	margin: 0 0 -.125em 0;
 }
 
-#input-display {
-	background-color: #777;
+#inputDisplay {
+	background-color: #222;
+	font-size: 1em;
+	text-align: right;
 }
 
 button {
@@ -50,4 +59,48 @@ button:hover {
 #equals {
 	width: 31vw;
 	border-radius: 20vw;
+}
+
+
+@media screen and (min-width: 600px) {
+	button {
+		font-size: 2em;
+		color: #FFF;
+		height: 13vh;
+		width: 13vh;
+		margin: .5vh;
+		border-radius: 20vh;
+		border: none;
+	}
+	
+	.clear {
+		width: 42vh;
+	}
+	
+	#equals {
+		width: 28.5vh;
+	}
+		
+}
+
+@media screen and (max-width: 300px) {
+	button {
+		font-size: 1em;
+		color: #FFF;
+		height: 13vh;
+		width: 13vh;
+		margin: .5vh;
+		border-radius: 20vh;
+		border: none;
+		color: green;
+	}
+	
+	.clear {
+		width: 42vh;
+	}
+	
+	#equals {
+		width: 28.5vh;
+	}
+	
 }
