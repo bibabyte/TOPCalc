@@ -23,13 +23,13 @@ const operators = [add, subtract, multiply, divide];
 
 function operate(operator, array){
 	switch(operator) {
-		case '+':
+		case 'add':
 			return add(array);
 			break;
 		case 'subtract':
 			return subtract(array);
 			break;
-		case 'x':
+		case 'multiply':
 			return multiply(array);
 			break;
 		case 'divide':
@@ -44,7 +44,7 @@ function operate(operator, array){
 	return operators[index](array);*/
 }
 		
-		let testNum = [2, 2, 3, 7, 9];
+		let testNum = [2, 2];
 		let testOp = [add, subtract, multiply, divide];
 		let a = 3;
 		let b = 4;
@@ -102,14 +102,16 @@ allBtns.forEach((button) => {
 
 function getNum(element) {     
 	let el = element.textContent;
-	let elID = element.getAttribute('id');
 	if (!isNaN(el)) {
 		if (display.textContent == '0' || isNaN(display.textContent)) {
-			display.textContent = elID;
+			display.textContent = el;
 		}
 		else {
-			display.textContent += elID;		
+			display.textContent += el;		
 		}
+	}
+	else if (el === '.') {
+		display.textContent += el;
 	}
 	else {
 		let num1 = display.textContent;
@@ -118,10 +120,9 @@ function getNum(element) {
 		console.log(opArray);
 		
 		if (elID == 'equals'/*'='*/) {
-			inputDisplay.textContent = `${numArray[0]} ${opArray[0]} ${numArray[1]}`
+			inputDisplay.textContent = `${inputDisplay.textContent} ${numArray[1]}`;
 			display.textContent = operate(opArray[0], numArray);
 		}
-		
 		else if (el == 'clear') {
 			display.textContent = 0;
 			inputDisplay.textContent = '';
@@ -129,12 +130,37 @@ function getNum(element) {
 			opArray.length = 0;
 		}
 		else {
-			opArray.push(el);
+			opArray.push(element.getAttribute('id'));
 			inputDisplay.textContent = num1 + ' ' + el;
 			display.textContent = el;
 		}
 	}	
 };
+
+
+
+/*///////=========ONE STEP CALCULATIONS WORK -	EXCEPT FOR SUBSTITUTION		
+			\,-3107 	FIX SUBTRACTION
+			FIX ADDITION
+			GET DISPLAY TO BE BETTER
+					space reserved before using calculator (no jump when text displayed in inputDisplay)
+			MULTI-STEP CALCULATIONS
+					basic (no PEMDAS)
+					e.g.: [9 + 40 - 2 * 10] = 470
+					then PEMDAS
+					e.g.: [9 + 40 - 2 * 10] = 29
+			ROUND ANSWERS WITH LONG DECIMALS (MAX DIGITS: 10)
+			ERROR IF DIVIDING BY 0
+			DECIMAL INPUTS BUT DOESN'T CALCULATE CORRECTLY
+				also, set conditions so it can only be used once 
+					(disable if used once)
+			BACKSPACE
+			KEYBOARD SUPPORT
+			
+
+
+
+
 
 
 //////I'M GETTING AHEAD OF MYSELF
