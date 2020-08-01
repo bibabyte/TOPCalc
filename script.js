@@ -36,12 +36,6 @@ function operate(operator, array){
 			return divide(array);
 			break;		
 	}
-	/*
-	if (index > 3) return null;
-	else if (index == 'add') {
-		return add(array)
-	}
-	return operators[index](array);*/
 }
 		
 		let testNum = [2, 2];
@@ -56,30 +50,13 @@ function operate(operator, array){
 		console.log(num2);
 		console.log(testNum.splice(2, 0, '4'));
 		//console.log(operate(testOp[1], testNum));
-		
-/* ====== trying to get xplice to work =======
-let months = ['Jan', 'March', 'April', 'June'];
-months.splice(1, 0, 'Feb');
-// inserts at index 1
-console.log(months);
-// expected output: Array ["Jan", "Feb", "March", "April", "June"]
 
-months.splice(4, 1, 'May');
-// replaces 1 element at index 4
-console.log(months);
-// expected output: Array ["Jan", "Feb", "March", "April", "May"]
-*/
 		
 /*-------------------------------------------------------*/		
 
 let numArray = [];
 let opArray = [];
 let result;
-
-
-//let displayValue = 678;
-//displayValue = 45
-//displayValue = 73;
 
 
 // divs
@@ -102,6 +79,7 @@ allBtns.forEach((button) => {
 
 function getNum(element) {     
 	let el = element.textContent;
+	let elID = element.getAttribute('id');
 	if (!isNaN(el)) {
 		if (display.textContent == '0' || isNaN(display.textContent)) {
 			display.textContent = el;
@@ -118,10 +96,13 @@ function getNum(element) {
 		numArray.push(num1);
 		console.log(numArray);
 		console.log(opArray);
-		
-		if (elID == 'equals'/*'='*/) {
+		console.log(num1);
+		if (elID == 'equals') {
 			inputDisplay.textContent = `${inputDisplay.textContent} ${numArray[1]}`;
 			display.textContent = operate(opArray[0], numArray);
+			numArray = [];
+			opArray = [];
+			//inputDisplay.textContent = ''; would like it to clear when next button is pushed, not before
 		}
 		else if (el == 'clear') {
 			display.textContent = 0;
@@ -131,8 +112,8 @@ function getNum(element) {
 		}
 		else {
 			opArray.push(element.getAttribute('id'));
-			inputDisplay.textContent = num1 + ' ' + el;
-			display.textContent = el;
+			inputDisplay.textContent = `${inputDisplay.textContent} ${display.textContent} ` + el;
+			display.textContent = el; //would like to remove this, but need a way to clear the memory before the next button is pushed.
 		}
 	}	
 };
@@ -142,8 +123,11 @@ function getNum(element) {
 /*///////=========ONE STEP CALCULATIONS WORK -	EXCEPT FOR SUBSTITUTION		
 			\,-3107 	FIX SUBTRACTION
 			FIX ADDITION
+			REMOVE OPERATOR FROM 'display'
+					currently the operator works to distinguish the first number from the next
 			GET DISPLAY TO BE BETTER
 					space reserved before using calculator (no jump when text displayed in inputDisplay)
+			/,-01082       CLEAR PREV CALCS ON =
 			MULTI-STEP CALCULATIONS
 					basic (no PEMDAS)
 					e.g.: [9 + 40 - 2 * 10] = 470
