@@ -1,6 +1,6 @@
 function add(array) {
-//	return a + b;
-	return array.reduce((total, current) => total + current);
+	// The Number() function converts the array strings to add-able numbers
+	return array.reduce((total, current) => Number(total) + Number(current));
 }
 function subtract(array) {
 //	return a - b;
@@ -71,6 +71,7 @@ const clearBtn = document.querySelectorAll('.clear');
 const equalsBrn = document.querySelector('#equals');
 
 display.textContent = 0;
+inputDisplay.textContent = 0;
 
 
 allBtns.forEach((button) => {
@@ -87,18 +88,19 @@ function getNum(element) {
 		else {
 			display.textContent += el;		
 		}
+		
 	}
 	else if (el === '.') {
 		display.textContent += el;
 	}
 	else {
-		let num1 = display.textContent;
-		numArray.push(num1);
+		//let num1 = display.textContent;
+		numArray.push(display.textContent);
 		console.log(numArray);
 		console.log(opArray);
-		console.log(num1);
+		//console.log(num1);
 		if (elID == 'equals') {
-			inputDisplay.textContent = `${inputDisplay.textContent} ${numArray[1]}`;
+			//inputDisplay.textContent = `${inputDisplay.textContent} ${numArray[1]}`;
 			display.textContent = operate(opArray[0], numArray);
 			numArray = [];
 			opArray = [];
@@ -122,12 +124,12 @@ function getNum(element) {
 
 /*///////=========ONE STEP CALCULATIONS WORK -	EXCEPT FOR SUBSTITUTION		
 			\,-3107 	FIX SUBTRACTION
-			FIX ADDITION
+			\,-0208 	FIX ADDITION
 			REMOVE OPERATOR FROM 'display'
 					currently the operator works to distinguish the first number from the next
 			GET DISPLAY TO BE BETTER
 					space reserved before using calculator (no jump when text displayed in inputDisplay)
-			/,-01082       CLEAR PREV CALCS ON =
+			\,-01082       CLEAR PREV CALCS ON =
 			MULTI-STEP CALCULATIONS
 					basic (no PEMDAS)
 					e.g.: [9 + 40 - 2 * 10] = 470
