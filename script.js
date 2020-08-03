@@ -103,13 +103,10 @@ function getNum(element) {
 		inputDisplay.textContent += el;
 	}
 	else {
-		//let num1 = display.textContent;
 		numArray.push(display.textContent);
 		console.log(numArray);
 		console.log(opArray);
-		//console.log(num1);
 		if (elID == 'equals') {
-			//inputDisplay.textContent = `${inputDisplay.textContent} ${numArray[1]}`;
 			display.textContent = operate(opArray[0], numArray);
 			numArray = [];
 			opArray = [];
@@ -136,12 +133,21 @@ function getNum(element) {
 			\,-0208 	FIX ADDITION
 			REMOVE OPERATOR FROM 'display'
 					currently the operator works to distinguish the first number from the next
-			GET DISPLAY TO BE BETTER
+			\,-0308     GET DISPLAY TO BE BETTER
 					space reserved before using calculator (no jump when text displayed in inputDisplay)
-			\,-01082       CLEAR PREV CALCS ON =
+			\,-01082    CLEAR PREV CALCS ON =
 			MULTI-STEP CALCULATIONS
 					basic (no PEMDAS)
 					e.g.: [9 + 40 - 2 * 10] = 470
+						while(numArray.length > 1) {
+							let multiArray = [];
+							multiArray.push(numArray[0], numArray[1]);
+							return operate(opArray[0], multiArray);
+							opArray.shift();
+							numArray.splice(0, 2, multiArray);
+						}
+					    0,1 -> op 0; result; pop(0,1), push@begofarray(result), pop.op(0); again for 0,1 -> op 0; until array.length == 0;
+				
 					then PEMDAS
 					e.g.: [9 + 40 - 2 * 10] = 29
 			ROUND ANSWERS WITH LONG DECIMALS (MAX DIGITS: 10)
