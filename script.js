@@ -36,6 +36,7 @@ function operate(operator, array){
 			return divide(array);
 			break;		
 	}
+	
 }
 		
 		let testNum = [2, 2];
@@ -84,14 +85,22 @@ function getNum(element) {
 	if (!isNaN(el)) {
 		if (display.textContent == '0' || isNaN(display.textContent)) {
 			display.textContent = el;
+			if (inputDisplay.textContent == 0) {
+				inputDisplay.textContent = display.textContent;
+			}
+			else {
+				inputDisplay.textContent = inputDisplay.textContent + " " + display.textContent;
+			}
 		}
 		else {
-			display.textContent += el;		
+			display.textContent += el;
+			inputDisplay.textContent += el;		
 		}
 		
 	}
 	else if (el === '.') {
 		display.textContent += el;
+		inputDisplay.textContent += el;
 	}
 	else {
 		//let num1 = display.textContent;
@@ -108,13 +117,13 @@ function getNum(element) {
 		}
 		else if (el == 'clear') {
 			display.textContent = 0;
-			inputDisplay.textContent = '';
+			inputDisplay.textContent = 0;
 			numArray.length = 0;
 			opArray.length = 0;
 		}
 		else {
 			opArray.push(element.getAttribute('id'));
-			inputDisplay.textContent = `${inputDisplay.textContent} ${display.textContent} ` + el;
+			inputDisplay.textContent = `${display.textContent} ` + el;
 			display.textContent = el; //would like to remove this, but need a way to clear the memory before the next button is pushed.
 		}
 	}	
