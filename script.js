@@ -38,21 +38,7 @@ function operate(operator, array){
 	}
 	
 }
-		
-		let testNum = [2, 2];
-		let testOp = [add, subtract, multiply, divide];
-		let a = 3;
-		let b = 4;
-		console.log(add(testNum));
-		console.log(subtract(testNum));
-		console.log(multiply(testNum));
-		console.log(divide(testNum));
-		let num2 = testNum.splice(2, 0, 4);
-		console.log(num2);
-		console.log(testNum.splice(2, 0, '4'));
-		//console.log(operate(testOp[1], testNum));
-
-		
+				
 /*-------------------------------------------------------*/		
 
 let numArray = [];
@@ -104,10 +90,17 @@ function getNum(element) {
 	}
 	else {
 		numArray.push(display.textContent);
-		console.log(numArray);
-		console.log(opArray);
+		//console.log(numArray);
+		//console.log(opArray);
 		if (elID == 'equals') {
-			display.textContent = operate(opArray[0], numArray);
+			//display.textContent = operate(opArray[0], numArray);
+			while(numArray.length > 1) {
+				let multiArray = [];
+				multiArray.push(numArray[0], numArray[1]);
+				display.textContent = operate(opArray[0], multiArray);
+				opArray.shift();
+				numArray.splice(0, 2, display.textContent);
+			}
 			numArray = [];
 			opArray = [];
 			//inputDisplay.textContent = ''; would like it to clear when next button is pushed, not before
@@ -137,17 +130,9 @@ function getNum(element) {
 					space reserved before using calculator (no jump when text displayed in inputDisplay)
 			\,-01082    CLEAR PREV CALCS ON =
 			MULTI-STEP CALCULATIONS
-					basic (no PEMDAS)
-					e.g.: [9 + 40 - 2 * 10] = 470
-						while(numArray.length > 1) {
-							let multiArray = [];
-							multiArray.push(numArray[0], numArray[1]);
-							return operate(opArray[0], multiArray);
-							opArray.shift();
-							numArray.splice(0, 2, multiArray);
-						}
-					    0,1 -> op 0; result; pop(0,1), push@begofarray(result), pop.op(0); again for 0,1 -> op 0; until array.length == 0;
-				
+					\,-0408 basic (no PEMDAS)
+					NEEDS TO HAVE CORRECT DISPLAY - see 'REMOVE OPERATOR...' above
+						e.g.: [9 + 40 - 2 * 10] = 470
 					then PEMDAS
 					e.g.: [9 + 40 - 2 * 10] = 29
 			ROUND ANSWERS WITH LONG DECIMALS (MAX DIGITS: 10)
