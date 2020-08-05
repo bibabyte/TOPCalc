@@ -44,10 +44,16 @@ button:hover {
 	background-color: #333;
 }
 
-.clear {
+#clear {
 	background-color: #DDD;
 	color: #222;
-	width: 48.5vw;
+	width: 32vw;
+	border-radius: 20vw;
+}
+
+#back {
+	background-color: #DDD;
+	color: #222;
 	border-radius: 20vw;
 }
 
@@ -56,7 +62,7 @@ button:hover {
 }
 
 #equals {
-	width: 31vw;
+	width: 32vw;
 	border-radius: 20vw;
 }
 
@@ -72,8 +78,8 @@ button:hover {
 		border: none;
 	}
 	
-	.clear {
-		width: 42vh;
+	#clear {
+		width: 28.25vh;
 	}
 	
 	#equals {
@@ -94,7 +100,7 @@ button:hover {
 		color: green;
 	}
 	
-	.clear {
+	#clear {
 		width: 42vh;
 	}
 	

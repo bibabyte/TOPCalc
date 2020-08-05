@@ -16,7 +16,7 @@ function divide(array) {
 
 /*---------------------------------------------------------*/
 
-const operators = [add, subtract, multiply, divide];
+//const operators = [add, subtract, multiply, divide];
 
 function operate(operator, array){
 	switch(operator) {
@@ -82,16 +82,17 @@ function getNum(element) {
 		}
 		
 	}
-	else if (el === '.') 
+	else if (el === '.') {
 		display.textContent += el;
 		inputDisplay.textContent += el;
 		return;
 	}
 	else {
 		numArray.push(display.textContent);
-		console.log(numArray);
-		console.log(opArray);
-		if (elID == 'equals') {
+		// console.log(numArray);
+		// console.log(opArray);
+		// console.log(elID);
+		if (element.getAttribute('id') == 'equals') {
 			//display.textContent = operate(opArray[0], numArray);
 			while(numArray.length > 1) {
 				let multiArray = [];
@@ -104,13 +105,13 @@ function getNum(element) {
 			opArray = [];
 			//inputDisplay.textContent = ''; would like it to clear when next button is pushed, not before
 		}
-		else if (el == 'clear') {
+		else if (elID == 'clear') {
 			display.textContent = 0;
 			inputDisplay.textContent = 0;
 			numArray.length = 0;
 			opArray.length = 0;
 		}
-/*		else if (el == 'backSpace') {
+		else if (elID == 'back') {
 				//	.slice: returns a new string from the previous string.
 				//	0 starting index of the slice, it removes nothing (new string contains all)
 				// 	-1 index of last character, this parameter indicates where to end the extraction
@@ -119,10 +120,14 @@ function getNum(element) {
 			display.textContent = display.textContent.slice(0, -1);
 			inputDisplay.textContent = inputDisplay.textContent.slice(0, -1);
 			el = el.slice(0, -1);
-		}*/
+			numArray.pop();
+			if (display.textContent == '') {
+				display.textContent = '_';
+			}
+		}
 		else {
-			opArray.push(element.getAttribute('id'));
-			inputDisplay.textContent = `${display.textContent} ` + el;
+			opArray.push(elID);
+			inputDisplay.textContent = display.textContent + ' '  + el;
 			display.textContent = el; //would like to remove this, but need a way to clear the memory before the next button is pushed.
 		}
 	}	
@@ -131,7 +136,11 @@ function getNum(element) {
 
 
 /*///////====================================================
-			REMOVE OPERATOR FROM 'display'
+			DISPLAY
+				when starting a new calculation display's do not reset
+				    eg 9 + 2 = 11 -> user enters 5 -> display shows 115, 115 is first element in numArray. 
+					(similar issue with inputDisplay view)
+				REMOVE OPERATOR FROM 'display'
 					currently the operator works to distinguish the first number from the next
 			MULTI-STEP CALCULATIONS
 					\,-0408 	basic (no PEMDAS)
@@ -153,11 +162,16 @@ function getNum(element) {
 								console.log('dec is present');	
 								return;
 						}
-		--	BACKSPACE
-				first trial code input - not tested
-				Need button in html to test.
+				not found in numArray when no leading 0
+				    (11.5 + .5 = 16.5)
+				-rounding issues will be solved with rounding fix. 
 			KEYBOARD SUPPORT
-			
+			IF NEW OPERATOR IS PRESSED REPLACE (don't add) in array
+			NEGATIVE NUMBERS
+			BACKSPACE
+			    \,-0508 works for numbers, button publishes
+				needs: work for operators OR doesn't work on operatn
+			ADD DIFFERENT CSS FOR SKINS!
 
 
 			\,-0408 	ERROR IF DIVIDING BY 0
@@ -165,6 +179,7 @@ function getNum(element) {
 			\,-0208 	FIX ADDITION
 			\,-0308     GET DISPLAY TO BE BETTER
 			\,-01082    CLEAR PREV CALCS ON =
+			
 
 
 
