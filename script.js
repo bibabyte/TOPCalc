@@ -76,33 +76,47 @@ function getNum(element) {
 				inputDisplay.textContent = inputDisplay.textContent + " " + display.textContent;
 			}
 		}
+		else if (opArray[0] === 'equals') {
+			display.textContent = el;
+			inputDisplay.textContent = el;
+			opArray = [];
+		}
+		
 		else {
 			display.textContent += el;
 			inputDisplay.textContent += el;		
 		}
-		
+		//when equals is hit - populate it in opArray, if opArray[0] === 'equals' display = el.
 	}
-	else if (el === '.') {
-		display.textContent += el;
-		inputDisplay.textContent += el;
-		return;
+	else if (elID == 'decimal') {
+		if (!display.textContent.includes('.')) {
+			display.textContent += el;
+			inputDisplay.textContent += el;	
+		}
+		if (isNaN(display.textContent)) {
+			display.textContent = '0' + el;
+			inputDisplay.textContent = inputDisplay.textContent.replace('.', ' ') + '0' + el;
+		}
 	}
 	else {
 		numArray.push(display.textContent);
-		// console.log(numArray);
-		// console.log(opArray);
-		// console.log(elID);
-		if (element.getAttribute('id') == 'equals') {
+		////console.log(numArray);
+		//console.log(opArray);
+		// //console.log(elID);
+		if (elID == 'equals') {
 			//display.textContent = operate(opArray[0], numArray);
 			while(numArray.length > 1) {
 				let multiArray = [];
 				multiArray.push(numArray[0], numArray[1]);
-				display.textContent = operate(opArray[0], multiArray);
+				display.textContent = round(operate(opArray[0], multiArray), 10);
 				opArray.shift();
 				numArray.splice(0, 2, display.textContent);
 			}
 			numArray = [];
 			opArray = [];
+			opArray.push(elID);
+			//console.log(numArray, opArray);
+			//console.log(opArray);
 			//inputDisplay.textContent = ''; would like it to clear when next button is pushed, not before
 		}
 		else if (elID == 'clear') {
@@ -125,7 +139,11 @@ function getNum(element) {
 				display.textContent = '_';
 			}
 		}
+
 		else {
+			if (opArray[0] === 'equals') {
+				opArray = [];
+			}
 			opArray.push(elID);
 			inputDisplay.textContent = display.textContent + ' '  + el;
 			display.textContent = el; //would like to remove this, but need a way to clear the memory before the next button is pushed.
@@ -133,13 +151,14 @@ function getNum(element) {
 	}	
 };
 
+function round(number, decimalPlaces) {
+	const factorOfTen = Math.pow(10, decimalPlaces);
+	return Math.round(number * factorOfTen) / factorOfTen;
+}
 
 
 /*///////====================================================
 			DISPLAY
-				when starting a new calculation display's do not reset
-				    eg 9 + 2 = 11 -> user enters 5 -> display shows 115, 115 is first element in numArray. 
-					(similar issue with inputDisplay view)
 				REMOVE OPERATOR FROM 'display'
 					currently the operator works to distinguish the first number from the next
 			MULTI-STEP CALCULATIONS
@@ -148,23 +167,6 @@ function getNum(element) {
 						e.g.: [9 + 40 - 2 * 10] = 470
 					then PEMDAS
 					e.g.: [9 + 40 - 2 * 10] = 29
-			ROUND ANSWERS WITH LONG DECIMALS (MAX DIGITS: 10)
-			DECIMAL
-				set conditions so it can only be used once 
-					(disable if used once)
-						NOT WORKING:
-						console.log(display.textContent);
-							let decPresent = '.';
-							let result = decPresent.test(display.textContent);						
-							//let decPresent = display.textContent.search('.');
-							console.log(decPresent);
-							if (result) {
-								console.log('dec is present');	
-								return;
-						}
-				not found in numArray when no leading 0
-				    (11.5 + .5 = 16.5)
-				-rounding issues will be solved with rounding fix. 
 			KEYBOARD SUPPORT
 			IF NEW OPERATOR IS PRESSED REPLACE (don't add) in array
 			NEGATIVE NUMBERS
@@ -178,9 +180,10 @@ function getNum(element) {
 			\,-3107 	FIX SUBTRACTION
 			\,-0208 	FIX ADDITION
 			\,-0308     GET DISPLAY TO BE BETTER
-			\,-01082    CLEAR PREV CALCS ON =
-			
-
+			\,-0108    CLEAR PREV CALCS ON =
+			\,-1808 	ROUND ANSWERS WITH LONG DECIMALS (MAX DIGITS: 10)
+			\,-1808		when starting a new calculation display's do not reset
+			\,-1808	DECIMAL
 
 
 //////I'M GETTING AHEAD OF MYSELF
@@ -215,7 +218,7 @@ function getNum(element) {
 	}
 }
 */
-//console.log(displayValue);		
+////console.log(displayValue);		
 //display.textContent = displayValue;
 
 
