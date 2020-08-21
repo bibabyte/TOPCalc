@@ -61,6 +61,12 @@ button:hover {
 	background-color: orange;
 }
 
+.operator:hover {
+	background-color: white;
+	color: orange;
+	border: 0px solid #999;
+}
+
 #equals {
 	width: 32vw;
 	border-radius: 20vw;
